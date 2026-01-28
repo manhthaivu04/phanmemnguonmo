@@ -68,14 +68,12 @@ Route::post('/luu-tuoi', function (Request $request) {
     return "Đã lưu tuổi: " . $request->tuoi . ". <a href='/admin'>Vào trang Admin (Cần >= 18)</a>";
 });
 
-// Route Admin (Được bảo vệ bởi middleware check.age)
+// Route Admin 
 Route::middleware(['check.age'])->group(function () {
     Route::get('/admin', function () {
         return "Chào mừng bạn đến trang Admin! (Bạn đã đủ 18 tuổi)";
     });
 });
-
-// ----------------------------------------------------------------------
 
 // 8. Fallback Route (LUÔN ĐỂ Ở CUỐI CÙNG)
 Route::fallback(function () {
