@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head><title>Trang chủ</title></head>
+<body>
+    <h1>Chào mừng đến với trang chủ</h1>
+    <a href="{{ route('product.index') }}">Xem danh sách sản phẩm</a>
+</body>
+</html>
