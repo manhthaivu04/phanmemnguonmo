@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController; 
+use App\Http\Controllers\CategoryController; 
 
 // 1. Route Home "/"
 Route::get('/', function () {
@@ -75,7 +76,29 @@ Route::middleware(['check.age'])->group(function () {
     });
 });
 
-// 8. Fallback Route (LUÔN ĐỂ Ở CUỐI CÙNG)
+// QUẢN LÝ DANH MỤC (CATEGORY)
+Route::prefix('category')->group(function () {
+    // Hiển thị danh sách
+    Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+    
+    // Form thêm mới
+    Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+    
+    // Xử lý lưu dữ liệu
+    Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+    
+    // Form chỉnh sửa (cần ID)
+    Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    
+    // Xử lý cập nhật (cần ID)
+    Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    
+    // Xóa mềm (cần ID)
+    Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+});
+
+
+// 8. Fallback Route
 Route::fallback(function () {
     return view('error.404');
 });
