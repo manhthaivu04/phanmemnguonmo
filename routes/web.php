@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController; 
 use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\ProductController;
 
 // 1. Route Home "/"
 Route::get('/', function () {
@@ -11,35 +12,39 @@ Route::get('/', function () {
 })->name('home');
 
 
-// Gom nhóm Route Product
+// QUẢN LÝ SẢN PHẨM (PRODUCT) 
 Route::prefix('product')->group(function () {
-
-    // 2. Route "/product": Danh sách sản phẩm
-    Route::get('/', function () {
-        return view('product.index');
-    })->name('product.index');
-
-    // 3. Route "/product/add": Form thêm mới
-    Route::get('/add', function () {
-        return view('product.add');
-    })->name('product.add');
-
-    // 4. Route "/product/{id}": Chi tiết sản phẩm
-    Route::get('/{id?}', function ($id = '123') {
-        return "Chi tiết sản phẩm có ID: " . $id;
-    })->where('id', '[a-zA-Z0-9]+')->name('product.detail');
+    // Hiển thị danh sách
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    
+    // Form thêm mới
+    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+    
+    // Xử lý lưu
+    Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+    
+    // Form sửa
+    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+    
+    // Xử lý cập nhật
+    Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    
+    // Xóa mềm
+    Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
 });
 
 
 // 5. Demo gọi route
 Route::get('/demo-route', function () {
-    $url = route('product.add');
+    // Lưu ý: route 'product.add' cũ đã đổi thành 'product.create' ở trên
+    $url = route('product.create'); 
     return "Đây là ví dụ gọi route theo tên. Đường dẫn đến trang thêm sản phẩm là: " . $url;
 });
 
 
 // 6. Route Sinh viên
 Route::get('/sinhvien/{name?}/{mssv?}', function ($name = 'Luong Xuan Hieu', $mssv = '123456') {
+    // Lưu ý: Đảm bảo bạn có file view 'product.sinhvien' hoặc sửa lại đường dẫn view cho đúng
     return view('product.sinhvien', [
         'name' => $name,
         'mssv' => $mssv

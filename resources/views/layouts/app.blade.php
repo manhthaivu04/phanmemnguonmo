@@ -22,10 +22,6 @@
                         <a class="nav-link" href="{{ route('home') }}">Trang chủ</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('product.index') }}">Sản phẩm</a>
-                    </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,6 +32,18 @@
                             <li><a class="dropdown-item" href="{{ route('category.create') }}">Thêm mới</a></li>
                         </ul>
                     </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Quản lý Sản phẩm
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                            <li><a class="dropdown-item" href="{{ route('product.index') }}">Xem danh sách</a></li>
+                            <li><a class="dropdown-item" href="{{ route('product.create') }}">Thêm mới</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('auth.signin') }}">Đăng nhập</a>
                     </li>
